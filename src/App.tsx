@@ -7,7 +7,7 @@ import { Countdown } from './components/countdown';
 
 function App() {
 
-  const time: Date = new Date(2023, 1, 07);
+  const time: Date = new Date(2023, 1, 7);
 
   return (
     <div className="App">
