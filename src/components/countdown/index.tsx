@@ -33,29 +33,29 @@ const LabelValue: React.FC<{ label: string, value?: string | number | null}> = (
     )
 }
 
-const CompCountShow: React.FC<CountdownRenderProps> = ({ ...props}) => {
+const CompCountShow: React.FC<CountdownRenderProps> = ({days, hours, minutes, seconds, milliseconds}) => {
 
     return (
         <div style={{ flexDirection: "row", display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr"}}>
             <LabelValue 
                 label="Dias"
-                value={props.days}
+                value={days}
             />
             <LabelValue 
                 label="Horas"
-                value={props.hours}
+                value={hours}
             />
             <LabelValue 
                 label="Minutos"
-                value={props.minutes}
+                value={minutes}
             />
             <LabelValue 
                 label="Segundos"
-                value={props.seconds}
+                value={seconds}
             />
             <LabelValue 
                 label="Milisegundos"
-                value={props.milliseconds}
+                value={milliseconds}
             />
         </div>
     )
