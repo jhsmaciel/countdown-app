@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactCountdown, {CountdownRenderProps} from 'react-countdown';
+import ReactCountdown, { CountdownTimeDelta } from 'react-countdown';
 
 import './index.css'
 
@@ -19,12 +19,12 @@ export const Countdown: React.FC<CountdownProps> = ({ time }) => {
     )
 }
 
-const Title: React.FC<any> = (props) => <p style={{fontSize: "2em"}}><strong>{props.children}</strong></p>
+const Title: React.FC<any> = (props) => <p style={{ fontSize: "2em" }}><strong>{props.children}</strong></p>
 
 
 const Label: React.FC<any> = (props) => <label>{props.children}</label>
 
-const LabelValue: React.FC<{ label: string, value?: string | number | null}> = ({label, value}) => {
+const LabelValue: React.FC<{ label: string, value?: string | number | null }> = ({ label, value }) => {
     return (
         <div>
             <Title>{value}</Title>
@@ -33,30 +33,42 @@ const LabelValue: React.FC<{ label: string, value?: string | number | null}> = (
     )
 }
 
-const CompCountShow: React.FC<CountdownRenderProps> = ({days, hours, minutes, seconds, milliseconds}) => {
+const Units: Array<{
+    key: keyof CountdownTimeDelta,
+    label: string
+}> = [{
+    key: 'days',
+    label: 'Dia'
+},
+{
+    key: 'hours',
+    label: "Hora"
+},
+{
+    key: 'minutes',
+    label: "Minuto"
+},
+{
+    key: 'seconds',
+    label: "Segundo"
+},
+{
+    key: 'milliseconds',
+    label: "Milisegundo"
+}];
+
+const CompCountShow: React.FC<CountdownTimeDelta> = (props) => {
+
+    function isPlural(item: number): boolean {
+        return item > 1;
+    }
 
     return (
-        <div style={{ flexDirection: "row", display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr"}}>
-            <LabelValue 
-                label="Dias"
-                value={days}
-            />
-            <LabelValue 
-                label="Horas"
-                value={hours}
-            />
-            <LabelValue 
-                label="Minutos"
-                value={minutes}
-            />
-            <LabelValue 
-                label="Segundos"
-                value={seconds}
-            />
-            <LabelValue 
-                label="Milisegundos"
-                value={milliseconds}
-            />
+        <div style={{ flexDirection: "row", display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr" }}>
+            {Units.map(unit => <LabelValue
+                label={isPlural(props[unit.key] as number) ? (unit.label + "s") : unit.label}
+                value={props[unit.key] as number}
+            />)}
         </div>
     )
 }
